@@ -1,23 +1,12 @@
-From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
-From: webos-home-lab
-Date: Thu, 30 Oct 2026 00:00:00 +0000
-Subject: [PATCH 3/7] step b: full-screen space scene
-
----
- UserInterfaceLayer/Containers/MainView.qml | 19 ++++++++++++++++---
- 1 file changed, 16 insertions(+), 3 deletions(-)
-
 diff --git a/UserInterfaceLayer/Containers/MainView.qml b/UserInterfaceLayer/Containers/MainView.qml
 index 099172c..42e9553 100755
 --- a/UserInterfaceLayer/Containers/MainView.qml
 +++ b/UserInterfaceLayer/Containers/MainView.qml
-@@ -281,6 +281,19 @@ FocusScope {
-              }
-          }
+@@ -283,2 +283,15 @@ FocusScope {
  
-+        // krieger: one full-screen space scene behind the whole home screen
++        // custom: one full-screen space scene behind the whole home screen
 +        Image {
-+            id: kriegerSpaceBg
++            id: customSpaceBg
 +            anchors.fill: parent
 +            z: -1
 +            source: systemProperties.getImageUrl("bg_space.jpg")
@@ -29,32 +18,18 @@ index 099172c..42e9553 100755
 +        }
 +
          Loader {
- 
-             active: (systemProperties.isTopShelfGuide && !uiController.isEditMode) === true && uiController.isFullHome
-@@ -316,7 +329,7 @@ FocusScope {
- 
-             sourceComponent: Rectangle {
+@@ -318,3 +331,3 @@ FocusScope {
                  anchors.fill: parent
 -                color: "#000000"
-+                color: "transparent" // krieger: scene shows through
++                color: "transparent" // custom: scene shows through
  
-                 Image {
- 
-@@ -331,7 +344,7 @@ FocusScope {
-                     height: topDefaultAppsBg.sourceHeight
-                     source: systemProperties.getImageUrl("banner_image_02.png")
+@@ -333,3 +346,3 @@ FocusScope {
                      cache: false
 -                    opacity: systemProperties.isCheckAdvertisement || !systemProperties.homePromotionOn ? 1 : 0.7
-+                    opacity: 0 // krieger: the scene is the top band (was 1 or 0.7)
++                    opacity: 0 // custom: the scene is the top band (was 1 or 0.7)
                      visible: (!systemProperties.isTopShelfGuide && systemProperties.isNoAdvertisement && !uiController.isEditMode) === true && uiController.isFullHome && (shelfListContainer.state === "app" || interfaces.application.isDefaultShelfList)
- 
-                 }
-@@ -357,7 +370,7 @@ FocusScope {
- 
-         Rectangle {
+@@ -359,3 +372,3 @@ FocusScope {
              anchors.fill: parent
 -            color: styleSheet.screen.bgColor//"#000000"
-+            color: "transparent" // krieger: was styleSheet.screen.bgColor
++            color: "transparent" // custom: was styleSheet.screen.bgColor
              visible: !uiController.isEditMode && uiController.isFullHome && systemProperties.isTopShelfGuide === false && systemProperties.isNoAdvertisement === false
-         }
- 

@@ -4,6 +4,8 @@ Reclaim the home screen on an LG webOS 6.x TV you own: drop the ads, promos,
 "Start a new experience" filler and unused tiles, put a real full-screen
 photo behind everything, and make the input tiles dark so they sit on it.
 
+> ⚖️ Not affiliated with LG. For a TV **you own**. No exploit here; no warranty. See [NOTICE.md](NOTICE.md).
+
 This is a **customization** guide for a TV **you own**. It does not include any
 exploit code. Rooting is done with the public community tools linked in
 [`docs/01-rooting.md`](docs/01-rooting.md); everything in this repo runs
@@ -45,7 +47,7 @@ checkpoint, so you have to delete the checkpoint or your edits stay invisible).
 # 1. Copy LG's stock home QML off the TV to ./stock-qml, then:
 cd stock-qml
 git init -q && git add -A && git commit -qm stock      # baseline to diff against
-git am ../patches/*.patch                               # apply the lessons you want
+git apply ../patches/*.patch                            # apply the lessons you want
 
 # 2. Render a background from a wide space photo (>= 3840 wide)
 python3 ../scripts/render_home_bg.py my_photo.jpg bg_space_SIZE.jpg
