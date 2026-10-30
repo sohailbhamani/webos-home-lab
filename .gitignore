@@ -1,6 +1,24 @@
-# Never commit TV-specific secrets or LG's copyrighted QML
+# --- Never commit anything TV-specific or copyrighted ---
+# LG's stock home QML (extract from YOUR tv; not ours to redistribute)
 stock-qml/
+*-qml/
+# Secrets / keys / device identifiers
 *.key
 *_rsa
-*.ipk
+*_rsa.*
+*.pem
+id_*
+webos_rsa*
 tv-host*
+*.secret
+.env
+# Firmware / packages
+*.ipk
+*.epk
+*.img
+*.bin
+fwmap*.txt
+# Backgrounds you render are fine to keep; raw source photos can be large
+*.raw
+# OS cruft
+.DS_Store
