@@ -23,6 +23,8 @@ don't paste.
 | `docs/01-rooting.md` | How people root LG TVs — links to the public tools, no exploit here |
 | `docs/02-how-the-home-app-works.md` | webOS home is QML; the overlay + checkpoint trick that makes edits stick |
 | `docs/03-the-edits.md` | Every change, what it does, and why, keyed to the patches |
+| `docs/04-going-further.md` | Build your own app, the screensaver, doing it across several TVs |
+| `docs/05-apps-and-settings.md` | The curated homebrew app set we install, and why; the privacy pass |
 | `patches/` | One `git`-style patch per change, against LG's stock home QML |
 | `hooks/70-homeqml-k` | Boot hook: bind-mount the patched copy and relaunch home |
 | `scripts/render_home_bg.py` | Turn a wide space photo into a TV-safe background |
