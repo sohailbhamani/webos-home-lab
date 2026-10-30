@@ -12,7 +12,7 @@ free and open-source.
 | **Homebrew Channel** | `org.webosbrew.hbchannel` | The store + root manager. Everything else installs through it. First thing on. |
 | **App Update Blocker** | `org.webosbrew.appupdateblocker` | Stops LG silently re-updating apps — including the ones next to our patched home app — which can undo customizations or re-enable telemetry. On early. |
 | **YouTube AdFree** | `youtube.leanback.v4` | Ad-free YouTube ([`youtube-webos`](https://github.com/webosbrew/youtube-webos)). The single biggest day-to-day win. |
-| **Glasshouse** | `io.github.rorygallagher2024.lg-webos-dashboard` | Debloat + privacy dashboard: uninstall LG apps, block ~78 LG ad/telemetry domains, flip the consent toggles off in one place. |
+| **Glasshouse** | `io.github.rorygallagher2024.lg-webos-dashboard` | Debloat + privacy dashboard: disable LG background services, block ~78 LG ad/telemetry domains, flip the consent toggles off in one place. On webOS 6.x LG's built-in apps live on the read-only system partition, so they can't be truly uninstalled — only disabled or hidden. |
 | **Life's Good Without Spying** | `ooo.lew.lifesgoodwithoutspying` | Turns off LG's data collection / telemetry at the service level — belt-and-suspenders with Glasshouse's domain blocking. |
 | **VNC Server** | `org.webosbrew.vncserver` | See and capture the screen from a laptop. Invaluable while iterating on the home-screen UI (and for screenshots). Its launcher icon is hidden by patch `06`, but it stays installed. |
 
