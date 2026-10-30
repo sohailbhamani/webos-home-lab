@@ -1,3 +1,5 @@
+# Tuned for one image: ESO's 3840x1920 Milky Way panorama. The rotation and
+# crop below centre its galactic core; for another photo, adjust them.
 import sys
 from PIL import Image, ImageEnhance, ImageDraw, ImageFilter
 src, out = sys.argv[1], sys.argv[2]

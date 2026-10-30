@@ -7,7 +7,7 @@ want. Every edited line is tagged `// custom:` so you can find them later.
 Line numbers and exact text are from a **43UP8000PUR / webOS 6.5**. Read your
 own files before applying.
 
-## `0001` — no guide, no Recent Input card, no ads
+## `01` — no guide, no Recent Input card, no ads
 
 - **AdShelf.qml**: the `LastInputCard` (the "Recent Input" tile) → `visible: false`.
 - **TopShelf.qml**: force the `isTopShelfGuide` guard to `false` where it gates
@@ -19,7 +19,7 @@ own files before applying.
   the shelf list comes from the default set, not LG's server.
 - **PromotionInterfaces.qml**: early `return` in `requestRecommendedAdData()`.
 
-## `0002` — kill the guide at its source
+## `02` — kill the guide at its source
 
 The "Start a new experience with webOS" banner is LG's *agreements* prompt and
 comes back whenever the privacy agreements are off (which, post-root, they are).
@@ -27,7 +27,7 @@ Hiding it in one view isn't enough. Set the single source property:
 
 - **SystemProperties.qml**: `property bool isTopShelfGuide: false`.
 
-## `0003` — one full-screen space scene
+## `03` — one full-screen space scene
 
 - **MainView.qml**: add one `Image { id: customSpaceBg; z: -1; anchors.fill;
   source: getImageUrl("bg_space.jpg"); fillMode: PreserveAspectCrop }` behind
@@ -38,14 +38,14 @@ Hiding it in one view isn't enough. Set the single source property:
 Drop your rendered `bg_space.jpg` into
 `UserInterfaceLayer/Components/images/{2k,4k}/`.
 
-## `0004` — hide the "no ads" filler guide
+## `04` — hide the "no ads" filler guide
 
 With ads gone, LG shows a `TopDefaultAppsGuide` filler (the same "new experience"
 art). Hide it:
 
 - **TopShelf.qml**: `topDefaultAppsGuide` → `visible: false`.
 
-## `0005` — drop the Home Dashboard + mobile Connection Guide tiles
+## `05` — drop the Home Dashboard + mobile Connection Guide tiles
 
 In the connection/input shelf, filter out two tile *types* before they render:
 
@@ -53,7 +53,7 @@ In the connection/input shelf, filter out two tile *types* before they render:
   whose `type` is `"title"` (Home Dashboard) or `"mobile_guide"` (Connection
   Guide). AirPlay, inputs, USB and sound-out stay.
 
-## `0006` — hide unused launcher icons
+## `06` — hide unused launcher icons
 
 Keep the apps installed but out of the ribbon:
 
@@ -62,7 +62,7 @@ Keep the apps installed but out of the ribbon:
   Web Browser, Media Player, Alexa, Who.Where.What?, Room-to-Room Share, VNC.
   Edit the list to taste.
 
-## `0007` — dark connection tiles
+## `07` — dark connection tiles
 
 The input/AirPlay tiles are white by default and clash with a dark background.
 
