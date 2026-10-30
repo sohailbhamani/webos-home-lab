@@ -1,0 +1,64 @@
+diff --git a/Interfaces/PromotionInterfaces/PromotionInterfaces.qml b/Interfaces/PromotionInterfaces/PromotionInterfaces.qml
+index d31e8f7..5669f47 100755
+--- a/Interfaces/PromotionInterfaces/PromotionInterfaces.qml
++++ b/Interfaces/PromotionInterfaces/PromotionInterfaces.qml
+@@ -766,2 +766,3 @@ Item {
+         root.sponsoredAdData = []
++        return; // custom: no ads
+         var adSize = systemProperties.is4K ? Qt.size(600, 500) : Qt.size(300, 250);
+diff --git a/Model/ShelfList.js b/Model/ShelfList.js
+index fd6b2b1..66b5c71 100755
+--- a/Model/ShelfList.js
++++ b/Model/ShelfList.js
+@@ -30,3 +30,3 @@ class ShelfList {
+                 if (response) {
+-                    self._initByServerData(systemProperties.shelfListDataSDX);
++                    self._initByDefault(); // custom: default shelves, not LG server list
+                 } else {
+@@ -41,3 +41,3 @@ class ShelfList {
+                     if (response) {
+-                        self._initByServerData(systemProperties.shelfListDataSDX);
++                        self._initByDefault(); // custom: default shelves, not LG server list
+                     } else {
+diff --git a/UserInterfaceLayer/Containers/Main/AdShelf.qml b/UserInterfaceLayer/Containers/Main/AdShelf.qml
+index a47d4ac..aec3041 100644
+--- a/UserInterfaceLayer/Containers/Main/AdShelf.qml
++++ b/UserInterfaceLayer/Containers/Main/AdShelf.qml
+@@ -127,3 +127,3 @@ FocusScope {
+             height: systemProperties.isWEE ? styleSheet.getRValue(250) : styleSheet.getRValue(270)
+-            visible: !mainView.isHalfMode
++            visible: false // custom: no Recent Input card
+ 
+diff --git a/UserInterfaceLayer/Containers/Main/TopShelf.qml b/UserInterfaceLayer/Containers/Main/TopShelf.qml
+index a876058..1316cd8 100755
+--- a/UserInterfaceLayer/Containers/Main/TopShelf.qml
++++ b/UserInterfaceLayer/Containers/Main/TopShelf.qml
+@@ -35,3 +35,3 @@ FocusScope {
+         if(activeFocus) {
+-            if(systemProperties.isTopShelfGuide && !uiController.isEditMode) {
++            if(false && systemProperties.isTopShelfGuide && !uiController.isEditMode) {
+                 topShelfGuide.forceActiveFocus();
+@@ -75,3 +75,3 @@ FocusScope {
+         enabled: visible
+-        visible: (systemProperties.isTopShelfGuide && !uiController.isEditMode)
++        visible: (false && systemProperties.isTopShelfGuide && !uiController.isEditMode)
+ 
+diff --git a/UserInterfaceLayer/Containers/MainView.qml b/UserInterfaceLayer/Containers/MainView.qml
+index c229b33..099172c 100755
+--- a/UserInterfaceLayer/Containers/MainView.qml
++++ b/UserInterfaceLayer/Containers/MainView.qml
+@@ -92,3 +92,3 @@ FocusScope {
+             if(systemProperties.isContentRecommendation && systemProperties.homePromotionOn){
+-                interfaces.promotion.requestRecommendedAdData();
++                // custom: no ads  interfaces.promotion.requestRecommendedAdData();
+             }
+@@ -99,3 +99,3 @@ FocusScope {
+             }
+-            interfaces.application.updateContentRecommendationShelf();
++            // custom: no recommendations  interfaces.application.updateContentRecommendationShelf();
+         }
+@@ -109,3 +109,3 @@ FocusScope {
+                 if (!systemProperties.isContentRecommendation) {
+-                    interfaces.advertisement.makeAdBanner();
++                    // custom: no ads  interfaces.advertisement.makeAdBanner();
+                 }

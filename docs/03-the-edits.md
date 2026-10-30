@@ -1,8 +1,8 @@
 # The edits
 
 Each change is one patch in [`../patches`](../patches), applied on top of LG's
-stock home QML. Apply them in order with `git am`, or cherry-pick the ones you
-want. Every edited line is tagged `// krieger:` so you can find them later.
+stock home QML. Apply them in order with `git apply patches/*.patch`, or pick the ones you
+want. Every edited line is tagged `// custom:` so you can find them later.
 
 Line numbers and exact text are from a **43UP8000PUR / webOS 6.5**. Read your
 own files before applying.
@@ -29,7 +29,7 @@ Hiding it in one view isn't enough. Set the single source property:
 
 ## `0003` — one full-screen space scene
 
-- **MainView.qml**: add one `Image { id: kriegerSpaceBg; z: -1; anchors.fill;
+- **MainView.qml**: add one `Image { id: customSpaceBg; z: -1; anchors.fill;
   source: getImageUrl("bg_space.jpg"); fillMode: PreserveAspectCrop }` behind
   everything, cap its `sourceSize` to 1920×1080, and turn the opaque cover
   rectangles (`#000000`, `bgColor`) **transparent** and the stock top band's
@@ -58,7 +58,7 @@ In the connection/input shelf, filter out two tile *types* before they render:
 Keep the apps installed but out of the ribbon:
 
 - **SystemServiceResponseProcessors.js**: filter the `listLaunchPoints` response
-  by `id` (`kriegerHidden` list) — LG Channels, Home Dashboard, Sports Alert,
+  by `id` (`customHidden` list) — LG Channels, Home Dashboard, Sports Alert,
   Web Browser, Media Player, Alexa, Who.Where.What?, Room-to-Room Share, VNC.
   Edit the list to taste.
 
