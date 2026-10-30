@@ -1,0 +1,22 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: webos-home-lab
+Date: Thu, 30 Oct 2026 00:00:00 +0000
+Subject: [PATCH 4/7] step b2: hide the no-ads filler guide
+
+---
+ UserInterfaceLayer/Containers/Main/TopShelf.qml | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/UserInterfaceLayer/Containers/Main/TopShelf.qml b/UserInterfaceLayer/Containers/Main/TopShelf.qml
+index a876058..1798dab 100755
+--- a/UserInterfaceLayer/Containers/Main/TopShelf.qml
++++ b/UserInterfaceLayer/Containers/Main/TopShelf.qml
+@@ -109,7 +109,7 @@ FocusScope {
+         anchors.top: parent.top
+         anchors.left: parent.left
+         enabled: visible
+-        visible: !topShelfGuide.visible && hero.noAdvertisement
++        visible: false // krieger: no "Start a new experience" filler (was !topShelfGuide.visible && hero.noAdvertisement)
+ 
+         Keys.onUpPressed: {
+             topGlobalAction.forceActiveFocus();

@@ -1,0 +1,45 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: webos-home-lab
+Date: Thu, 30 Oct 2026 00:00:00 +0000
+Subject: [PATCH 2/7] step a2: guide off at the source
+
+---
+ AppInitializer/SystemProperties.qml             | 2 +-
+ UserInterfaceLayer/Containers/Main/TopShelf.qml | 4 ++--
+ 2 files changed, 3 insertions(+), 3 deletions(-)
+
+diff --git a/AppInitializer/SystemProperties.qml b/AppInitializer/SystemProperties.qml
+index 6ba2ffd..043c056 100755
+--- a/AppInitializer/SystemProperties.qml
++++ b/AppInitializer/SystemProperties.qml
+@@ -72,7 +72,7 @@ Item {
+     property bool aboutToPowerOff: false
+     property bool isTopShelfGuideNetwork: false
+     property bool isTopShelfGuideEula: false
+-    property bool isTopShelfGuide: (isTopShelfGuideNetwork || isTopShelfGuideEula)
++    property bool isTopShelfGuide: false // krieger: never show the "Start a new experience" guide (was isTopShelfGuideNetwork || isTopShelfGuideEula)
+     property bool needWeatherCardLoading: false
+     property bool initNetworkCompleted: false
+     property bool isSdxReady: false
+diff --git a/UserInterfaceLayer/Containers/Main/TopShelf.qml b/UserInterfaceLayer/Containers/Main/TopShelf.qml
+index 1316cd8..a876058 100755
+--- a/UserInterfaceLayer/Containers/Main/TopShelf.qml
++++ b/UserInterfaceLayer/Containers/Main/TopShelf.qml
+@@ -33,7 +33,7 @@ FocusScope {
+ 
+     onActiveFocusChanged: {
+         if(activeFocus) {
+-            if(false && systemProperties.isTopShelfGuide && !uiController.isEditMode) {
++            if(systemProperties.isTopShelfGuide && !uiController.isEditMode) {
+                 topShelfGuide.forceActiveFocus();
+             } else if (topDefaultAppsGuide.visible && hero.noAdvertisement && (hero.isCheckAdvertisement || !systemProperties.homePromotionOn)) {
+                 topDefaultAppsGuide.forceActiveFocus();
+@@ -73,7 +73,7 @@ FocusScope {
+         anchors.left: parent.left
+         anchors.leftMargin: styleSheet.getRValue(90)
+         enabled: visible
+-        visible: (false && systemProperties.isTopShelfGuide && !uiController.isEditMode)
++        visible: (systemProperties.isTopShelfGuide && !uiController.isEditMode)
+ 
+         onActiveFocusChanged: {
+             if(activeFocus) {

@@ -1,0 +1,6 @@
+# Never commit TV-specific secrets or LG's copyrighted QML
+stock-qml/
+*.key
+*_rsa
+*.ipk
+tv-host*

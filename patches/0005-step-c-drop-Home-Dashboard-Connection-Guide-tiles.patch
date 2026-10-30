@@ -1,0 +1,22 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: webos-home-lab
+Date: Thu, 30 Oct 2026 00:00:00 +0000
+Subject: [PATCH 5/7] step c: drop Home Dashboard + Connection Guide tiles
+
+---
+ Interfaces/ConnectionsInterfaces/ConnectionsInterfaces.qml | 2 ++
+ 1 file changed, 2 insertions(+)
+
+diff --git a/Interfaces/ConnectionsInterfaces/ConnectionsInterfaces.qml b/Interfaces/ConnectionsInterfaces/ConnectionsInterfaces.qml
+index 5819e99..75b0697 100755
+--- a/Interfaces/ConnectionsInterfaces/ConnectionsInterfaces.qml
++++ b/Interfaces/ConnectionsInterfaces/ConnectionsInterfaces.qml
+@@ -996,6 +996,8 @@ Item {
+         iotDevices = interfaces.iot ? interfaces.iot.iotDevices : [];
+ 
+         tempArray = titleTile.concat(tempArray).concat(iotDevices).concat(remotePCTile.length > 1 ? remotePCTile[0] : remotePCTile).concat(getGuideTile());
++        // krieger: drop the Home Dashboard tile and the mobile Connection Guide tile; keep AirPlay and inputs
++        tempArray = tempArray.filter(function(item){ return item.type !== "title" && item.type !== "mobile_guide"; });
+ 
+         tempArray.map(function(item){
+             item.id = JSON.stringify(item.onClick);
