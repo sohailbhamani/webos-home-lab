@@ -28,7 +28,7 @@ don't paste.
 | `docs/05-apps-and-settings.md` | The curated homebrew app set we install, and why; the privacy pass |
 | `patches/` | One `git`-style patch per change, against LG's stock home QML |
 | `hooks/70-homeqml-k` | Boot hook: bind-mount the patched copy and relaunch home |
-| `scripts/render_home_bg.py` | Turn a wide space photo into a TV-safe background |
+| `scripts/render_home_bg.py` | Turn the ESO Milky Way panorama into a TV-safe background (geometry is tuned to that image) |
 | `scripts/deploy.sh` | Copy the overlay to the TV and apply it |
 
 ## The shape of it
@@ -51,7 +51,8 @@ cd stock-qml
 git init -q && git add -A && git commit -qm stock      # baseline to diff against
 git apply ../patches/*.patch                            # apply the lessons you want
 
-# 2. Render a background from a wide space photo (>= 3840 wide)
+# 2. Render the background. The rotation/crop are tuned for the 3840x1920 ESO
+#    Milky Way panorama; for another photo, adjust the constants at the top.
 python3 ../scripts/render_home_bg.py my_photo.jpg bg_space_SIZE.jpg
 cp bg_space_1920.jpg UserInterfaceLayer/Components/images/2k/bg_space.jpg
 cp bg_space_1920.jpg UserInterfaceLayer/Components/images/4k/bg_space.jpg

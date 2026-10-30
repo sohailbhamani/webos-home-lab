@@ -19,15 +19,20 @@ HOOK=/var/lib/webosbrew/init.d/70-homeqml-k
 
 [ -f "$SRC/main.qml" ] || { echo "no $SRC/main.qml — point at your patched qml tree"; exit 1; }
 
-echo "==> backing up stock QML on the TV (first run only)"
+echo "==> backing up stock QML on the TV (only while the live QML is stock)"
+# Gate on the patch marker, not on homeqml-k existing: once the overlay is
+# mounted, the live path shows the patched copy and must not be saved as stock.
 ssh "$TV_HOST" '
-  B=/var/lib/webosbrew/backup-home-$(date +%Y%m%d-%H%M)
-  [ -d /var/lib/webosbrew/homeqml-k ] || {
+  Q=/usr/palm/applications/com.webos.app.home/qml
+  if grep -rqs "custom:" "$Q"; then
+    echo "live QML is already patched (overlay mounted) — skipping backup"
+  else
+    B=/var/lib/webosbrew/backup-home-$(date +%Y%m%d-%H%M)
     mkdir -p "$B"
     cp -a /var/lib/webosbrew/init.d "$B/init.d" 2>/dev/null || true
-    cp -a /usr/palm/applications/com.webos.app.home/qml "$B/stock-qml"
+    cp -a "$Q" "$B/stock-qml"
     echo "backup: $B"
-  }
+  fi
 '
 
 echo "==> syncing overlay"
