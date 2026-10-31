@@ -1,9 +1,9 @@
 diff --git a/Interfaces/ConnectionsInterfaces/ConnectionsInterfaces.qml b/Interfaces/ConnectionsInterfaces/ConnectionsInterfaces.qml
-index 07e21c2..73e0a0e 100755
+index 07e21c2..0bbbbb3 100755
 --- a/Interfaces/ConnectionsInterfaces/ConnectionsInterfaces.qml
 +++ b/Interfaces/ConnectionsInterfaces/ConnectionsInterfaces.qml
 @@ -911,2 +911,4 @@ Item {
          tempArray = titleTile.concat(tempArray).concat(iotDevices).concat(remotePCTile.length > 1 ? remotePCTile[0] : remotePCTile).concat(getGuideTile());
-+        // custom: drop the Home Dashboard tile and the mobile Connection Guide tile; keep AirPlay and inputs
-+        tempArray = tempArray.filter(function(item){ return item.type !== "title" && item.type !== "mobile_guide"; });
++        // custom: drop the Home Dashboard, mobile Connection Guide and See User Guide tiles; keep AirPlay, inputs and Remote PC
++        tempArray = tempArray.filter(function(item){ return item.type !== "title" && item.type !== "mobile_guide" && item.type !== "guide"; });
  
