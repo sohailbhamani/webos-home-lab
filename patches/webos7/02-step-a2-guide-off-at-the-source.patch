@@ -1,0 +1,23 @@
+diff --git a/AppInitializer/SystemProperties.qml b/AppInitializer/SystemProperties.qml
+index 147899c..1c46379 100755
+--- a/AppInitializer/SystemProperties.qml
++++ b/AppInitializer/SystemProperties.qml
+@@ -89,3 +89,3 @@ Item {
+     property bool isTopShelfGuideEula: false
+-    property bool isTopShelfGuide: (isTopShelfGuideNetwork || isTopShelfGuideEula)
++    property bool isTopShelfGuide: false // custom: never show the "Start a new experience" guide (was isTopShelfGuideNetwork || isTopShelfGuideEula)
+     property bool needWeatherCardLoading: false
+diff --git a/UserInterfaceLayer/Containers/Main/TopShelf.qml b/UserInterfaceLayer/Containers/Main/TopShelf.qml
+index 4faf49b..3d86d49 100755
+--- a/UserInterfaceLayer/Containers/Main/TopShelf.qml
++++ b/UserInterfaceLayer/Containers/Main/TopShelf.qml
+@@ -35,3 +35,3 @@ FocusScope {
+         if(activeFocus) {
+-            if(false && systemProperties.isTopShelfGuide && !uiController.isEditMode) {
++            if(systemProperties.isTopShelfGuide && !uiController.isEditMode) {
+                 topShelfGuide.forceActiveFocus();
+@@ -75,3 +75,3 @@ FocusScope {
+         enabled: visible
+-        visible: (false && systemProperties.isTopShelfGuide && !uiController.isEditMode)
++        visible: (systemProperties.isTopShelfGuide && !uiController.isEditMode)
+ 
