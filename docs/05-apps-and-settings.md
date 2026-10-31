@@ -28,11 +28,14 @@ an update.
 2. Glasshouse → Privacy tab: switch every consent/promo toggle off and enable
    ad-domain blocking.
 3. Life's Good Without Spying: enable it, to kill telemetry at the service layer.
+   Then turn two of its options **off**: *Ads & ACR* (`ads.stop`) and
+   *LG service platform* (`domains.sdp`). HBO Max needs both (see below).
 4. App Update Blocker: leave it on so none of the above gets reverted.
 
 After this pass plus the home-screen patches, the TV shows your content and your
-background. No ads, no promos, no "recommended for you", and no data going back
-to LG.
+background. No ads, no promos, no "recommended for you", and the known LG ad,
+ACR and telemetry domains are blocked. The TV still reaches LG's service
+platform (SDP) domains, which HBO Max needs.
 
 ## Not installed by default, but worth it
 
@@ -49,3 +52,50 @@ to LG.
 These come from LG's store and can't be version-checked from the shell, and the
 App Update Blocker stops them auto-updating. If one misbehaves, toggle the
 blocker off for a single manual update, then back on.
+
+### HBO Max stuck on its logo
+
+Symptom: HBO Max shows its logo and a spinner forever, or "Can't connect to HBO
+Max". Both come from Life's Good Without Spying defaults:
+
+- *Ads & ACR* (`ads.stop`) stubs out LG's ad manager plus the ACR, nudge and
+  upload services. HBO Max waits on one of them at launch, so it spins forever.
+- *LG service platform* (`domains.sdp`) blocks LG's service platform (SDP)
+  domains. With those blocked, HBO Max gets "Can't connect".
+
+Fix: in the app, turn both options off and apply. Over SSH, the same thing is:
+
+```sh
+C=/var/lib/webosbrew/lifesgoodwithoutspying.conf
+[ -f "$C" ] && cp "$C" "$C.bak"
+printf 'ads.stop=off\ndomains.sdp=off\n' >> "$C"
+/var/lib/webosbrew/init.d/50-lifesgoodwithoutspying
+```
+
+Re-running the hook removes the stubs and the SDP block (check with
+`mount | grep admanager`, which should print nothing). Those services run again,
+but the known ad, ACR and telemetry domains stay blocked and the consents stay
+off. The setting survives reboots.
+
+If another streaming app hangs the same way, test the same two options first.
+
+### Finding which block broke an app
+
+When an app hangs or can't connect, test the two kinds of block one at a time.
+Both checks are temporary. Re-running the hook (step 3) restores the app's
+blocks; the webosbrew `/etc/hosts` layer underneath comes back at the next reboot.
+
+1. **Domain block.** Lift it and relaunch the app:
+   ```sh
+   while mount | grep -q ' /etc/hosts '; do umount /etc/hosts || break; done
+   ```
+   If the app now works, a blocked domain category is the cause. Restore
+   (step 3), then turn categories off in the app a few at a time until the app
+   works. The domain lists are in
+   `/media/developer/apps/usr/palm/applications/ooo.lew.lifesgoodwithoutspying/init/blocklist.d/`.
+2. **Stubbed services.** The services the app stubbed out are listed in
+   `/var/lib/webosbrew/lifesgoodwithoutspying.stubbed`, and each one is a bind
+   mount. `umount` one, relaunch the app, and see whether it gets further.
+3. **Restore.** Run `/var/lib/webosbrew/init.d/50-lifesgoodwithoutspying`. It
+   puts back the block and the stubs from your saved settings. Then make the
+   real change in the app, so it sticks.
