@@ -22,6 +22,8 @@ after the TV is already rooted.
 Other models use the same home app structure, but file names and image sizes
 vary, so read your own files instead of pasting mine.
 
+![home screen](assets/screenshot.jpg)
+
 
 ## What's here
 
