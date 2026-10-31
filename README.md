@@ -17,9 +17,12 @@ after the TV is already rooted.
 |-------|--------------|----------|-----|---------------|-----------|-------|
 | 43UP8000PUR | 2021 / webOS 6.5 | 03.51.16 | 1 GB | Not measured. The background is made at 1920x1080 and goes in `images/2k` and `images/4k` | `patches/` | The original set. Screenshots through the VNC Server app |
 | 43UQ7070ZUD | 2022 / webOS 7.6 (webOS 22) | 04.60.90 | 1.3 GB | 1920x1080 on a 4K panel, so images load from `images/2k` | `patches/webos7/` | Stock home adds a "TV functions" shelf, which `01` removes. `05` also hides the "See User Guide" tile. Screenshots with the capture service need `SCREEN`, since `DISPLAY` comes back black. See [`docs/06-webos7.md`](docs/06-webos7.md) |
+| 43UP8000PUR | 2021 / webOS 6.5.3 | 03.53.45 | 1 GB (about 1070 MB usable) | 1920x1080 on a 4K panel, so images load from `images/2k` | `patches/webos6-03.53/` | Same model as the first row, newer firmware. `01` and `03` needed new context, and `05` also hides the "See User Guide" tile. The LG Channels row above the apps goes away only with *Recommendations on Home* off. See [`docs/07-webos6-03.53.md`](docs/07-webos6-03.53.md) |
 
 Other models use the same home app structure, but file names and image sizes
 vary, so read your own files instead of pasting mine.
+
+![home screen](assets/screenshot.jpg)
 
 
 ## What's here
@@ -32,8 +35,10 @@ vary, so read your own files instead of pasting mine.
 | `docs/04-going-further.md` | Building your own app, the screensaver, doing it across several TVs |
 | `docs/05-apps-and-settings.md` | The homebrew apps we install and why, plus the privacy pass |
 | `docs/06-webos7.md` | What changes on webOS 7 (webOS 22): ported patches, screen size, app notes |
+| `docs/07-webos6-03.53.md` | What changes on webOS 6.5 firmware 03.53.45: ported patches and the LG Channels row |
 | `patches/` | One `git`-style patch per change, against LG's stock home QML (webOS 6.5) |
 | `patches/webos7/` | The same patches ported to webOS 7 |
+| `patches/webos6-03.53/` | The same patches for webOS 6.5 firmware 03.53.45 |
 | `hooks/70-homeqml-k` | Boot hook: bind-mounts the patched copy and relaunches home |
 | `scripts/render_home_bg.py` | Turns the ESO Milky Way panorama into a TV-safe background (geometry is tuned to that image) |
 | `scripts/deploy.sh` | Copies the overlay to the TV and applies it |
