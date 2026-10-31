@@ -10,5 +10,8 @@ repos:
       - id: check-added-large-files
         args: ["--maxkb=2048"]
       - id: detect-private-key
+      # Patches need their trailing spaces: a blank context line is a single space.
       - id: end-of-file-fixer
+        exclude: '\.patch$'
       - id: trailing-whitespace
+        exclude: '\.patch$'

@@ -70,9 +70,9 @@ If they match, the overlay is live.
   home app.
 - Keep braces balanced. After every edit, the count of `{` must equal `}` in the
   file. A stray brace kills the whole app.
-- Match LG's exact image dimensions and keep files small. This TV has 1 GB of
-  RAM, and an oversized or wrongly-sized background thrashes it and blacks the
-  screen. Keep backgrounds under ~1 MB and banners under ~2 MB.
+- Match LG's exact image dimensions and keep files small. These TVs have 1 to
+  1.3 GB of RAM, and an oversized or wrongly-sized background thrashes them and
+  blacks the screen. Keep backgrounds under ~1 MB and banners under ~2 MB.
 - Never put JPEG bytes in a `.png`-named file (or the other way round). The
   decoder trips on the mismatch.
 - Always keep LG's stock QML. To roll back, point the hook at the stock tree (or
