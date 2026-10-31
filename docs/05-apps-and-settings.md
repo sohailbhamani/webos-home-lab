@@ -28,11 +28,14 @@ an update.
 2. Glasshouse → Privacy tab: switch every consent/promo toggle off and enable
    ad-domain blocking.
 3. Life's Good Without Spying: enable it, to kill telemetry at the service layer.
+   Then turn two of its options **off**: *Ads & ACR* (`ads.stop`) and
+   *LG service platform* (`domains.sdp`). HBO Max needs both (see below).
 4. App Update Blocker: leave it on so none of the above gets reverted.
 
 After this pass plus the home-screen patches, the TV shows your content and your
-background. No ads, no promos, no "recommended for you", and no data going back
-to LG.
+background. No ads, no promos, no "recommended for you", and the known LG ad,
+ACR and telemetry domains are blocked. The TV still reaches LG's service
+platform (SDP) domains, which HBO Max needs.
 
 ## Not installed by default, but worth it
 
@@ -49,3 +52,29 @@ to LG.
 These come from LG's store and can't be version-checked from the shell, and the
 App Update Blocker stops them auto-updating. If one misbehaves, toggle the
 blocker off for a single manual update, then back on.
+
+### HBO Max stuck on its logo
+
+Symptom: HBO Max shows its logo and a spinner forever, or "Can't connect to HBO
+Max". Both come from Life's Good Without Spying defaults:
+
+- *Ads & ACR* (`ads.stop`) stubs out LG's ad manager plus the ACR, nudge and
+  upload services. HBO Max waits on one of them at launch, so it spins forever.
+- *LG service platform* (`domains.sdp`) blocks LG's service platform (SDP)
+  domains. With those blocked, HBO Max gets "Can't connect".
+
+Fix: in the app, turn both options off and apply. Over SSH, the same thing is:
+
+```sh
+C=/var/lib/webosbrew/lifesgoodwithoutspying.conf
+[ -f "$C" ] && cp "$C" "$C.bak"
+printf 'ads.stop=off\ndomains.sdp=off\n' >> "$C"
+/var/lib/webosbrew/init.d/50-lifesgoodwithoutspying
+```
+
+Re-running the hook removes the stubs and the SDP block (check with
+`mount | grep admanager`, which should print nothing). Those services run again,
+but the known ad, ACR and telemetry domains stay blocked and the consents stay
+off. The setting survives reboots.
+
+If another streaming app hangs the same way, test the same two options first.
