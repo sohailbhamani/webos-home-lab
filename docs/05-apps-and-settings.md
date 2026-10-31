@@ -78,3 +78,22 @@ but the known ad, ACR and telemetry domains stay blocked and the consents stay
 off. The setting survives reboots.
 
 If another streaming app hangs the same way, test the same two options first.
+
+### Finding which block broke an app
+
+When an app hangs or can't connect, test the two kinds of block one at a time.
+Both checks are temporary; re-running the hook (last step) restores everything.
+
+1. **Domain block.** Lift it and relaunch the app:
+   ```sh
+   while mount | grep -q ' /etc/hosts '; do umount /etc/hosts || break; done
+   ```
+   If the app now works, a blocked domain category is the cause. Restore
+   (step 3), then turn categories off in the app a few at a time until the app
+   works. The domain lists are in the app's `init/blocklist.d/`.
+2. **Stubbed services.** The services the app stubbed out are listed in
+   `/var/lib/webosbrew/lifesgoodwithoutspying.stubbed`, and each one is a bind
+   mount. `umount` one, relaunch the app, and see whether it gets further.
+3. **Restore.** Run `/var/lib/webosbrew/init.d/50-lifesgoodwithoutspying`. It
+   puts back the block and the stubs from your saved settings. Then make the
+   real change in the app, so it sticks.
