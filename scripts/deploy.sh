@@ -1,5 +1,7 @@
 #!/bin/sh
-# Deploy the patched home-screen overlay to a rooted LG webOS 6.x TV.
+# Deploy the patched home-screen overlay to a rooted LG webOS 6.x or 7.x TV.
+# On webOS 7, seed the overlay on the TV first (cp -a the stock qml tree into
+# homeqml-k/qml), because a copy made on a Mac loses a file. See docs/06-webos7.md.
 #
 # Run this on your workstation. It expects:
 #   - ./stock-qml   : LG's stock home QML with the patches you want already applied

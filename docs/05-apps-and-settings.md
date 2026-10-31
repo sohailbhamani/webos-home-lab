@@ -3,6 +3,8 @@
 The home-screen patches are half the job. The other half is a small set of
 homebrew apps and a privacy pass. This is the set we install, all through the
 Homebrew Channel once the TV is rooted. Everything here is free and open-source.
+On webOS 7, Glasshouse isn't in the Homebrew Channel list and App Update Blocker
+needs a boot retry. See [`06-webos7.md`](06-webos7.md).
 
 ## The set
 

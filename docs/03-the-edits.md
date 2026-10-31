@@ -5,7 +5,8 @@ stock home QML. Apply them in order with `git apply patches/*.patch`, or pick th
 want. Every edited line is tagged `// custom:` so you can find them later.
 
 Line numbers and exact text are from a 43UP8000PUR on webOS 6.5. Read your own
-files before applying.
+files before applying. For webOS 7, use [`../patches/webos7`](../patches/webos7)
+and see [`06-webos7.md`](06-webos7.md) for what changed.
 
 ## `01`: no guide, no Recent Input card, no ads
 

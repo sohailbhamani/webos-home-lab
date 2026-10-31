@@ -11,11 +11,15 @@ is done with the public community tools linked in
 [`docs/01-rooting.md`](docs/01-rooting.md), and everything in this repo runs
 after the TV is already rooted.
 
-Tested on a 43UP8000PUR, webOS 6.5 (software 03.51.16), and a 43UQ7070ZUD,
-webOS 7.6 (software 04.60.90). Other models use the same home app structure, but
-file names and image sizes vary, so read your own files instead of pasting mine.
-For webOS 7, use `patches/webos7/` and see
-[`docs/06-webos7.md`](docs/06-webos7.md).
+## Tested TVs
+
+| Model | Year / webOS | Firmware | RAM | UI resolution | Patch set | Notes |
+|-------|--------------|----------|-----|---------------|-----------|-------|
+| 43UP8000PUR | 2021 / webOS 6.5 | 03.51.16 | 1 GB | Not measured. The background is made at 1920x1080 and goes in `images/2k` and `images/4k` | `patches/` | The original set. Screenshots through the VNC Server app |
+| 43UQ7070ZUD | 2022 / webOS 7.6 (webOS 22) | 04.60.90 | 1.3 GB | 1920x1080 on a 4K panel, so images load from `images/2k` | `patches/webos7/` | Stock home adds a "TV functions" shelf, which `01` removes. `05` also hides the "See User Guide" tile. Screenshots with the capture service need `SCREEN`, since `DISPLAY` comes back black. See [`docs/06-webos7.md`](docs/06-webos7.md) |
+
+Other models use the same home app structure, but file names and image sizes
+vary, so read your own files instead of pasting mine.
 
 ![home screen](assets/screenshot.jpg)
 
@@ -53,7 +57,7 @@ checkpoint, so you have to delete the checkpoint or your edits stay invisible.
 # 1. Copy LG's stock home QML off the TV to ./stock-qml, then:
 cd stock-qml
 git init -q && git add -A && git commit -qm stock      # baseline to diff against
-git apply ../patches/*.patch                            # apply the lessons you want
+git apply ../patches/*.patch                            # webOS 6.x; on webOS 7 use ../patches/webos7/*.patch
 
 # 2. Render the background. The rotation/crop are tuned for the 3840x1920 ESO
 #    Milky Way panorama; for another photo, adjust the constants at the top.
@@ -65,8 +69,8 @@ cp bg_space_1920.jpg UserInterfaceLayer/Components/images/4k/bg_space.jpg
 ```
 
 Apply the patches one at a time and look at the screen after each. Match LG's
-exact image dimensions, keep assets small (a TV with 1 GB of RAM thrashes on
-oversized images), and always keep LG's original QML so you can roll back.
+exact image dimensions, keep assets small (these TVs have 1 to 1.3 GB of RAM and
+thrash on oversized images), and always keep LG's original QML so you can roll back.
 
 ## Safety / scope
 

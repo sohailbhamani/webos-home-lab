@@ -2,8 +2,9 @@
 
 The second TV is a 43UQ7070ZUD on webOS 7.6.0 (software 04.60.90). The home app
 is the same QML app in the same place, and the same overlay and boot hook work
-unchanged. Patches `04` to `07` apply as they are. `01` to `03` needed porting
-by hand because LG renamed or reworded a few lines. The ported set is in
+unchanged. The 6.5 patches `04` to `07` apply as they are. `01` to `03` needed
+porting by hand because LG renamed or reworded a few lines, and the webOS 7
+`05` hides one more tile. The ported set is in
 [`../patches/webos7`](../patches/webos7), one file per step, same names as the
 6.5 set.
 
@@ -27,10 +28,11 @@ moves the ribbon up above the connection shelf. Patch `04` removes the hero.
   `styleSheet.screen.bgColor` instead of `"#000000"`, and the banner's opacity
   check also looks at `networkConnected`. Same fix: make both covers
   transparent and set the banner opacity to `0`.
-- `04` to `07`: unchanged.
+- `04`, `06` and `07`: unchanged.
 - `05`: the tile types are still `"title"` (Home Dashboard) and
   `"mobile_guide"` (Connection Guide). webOS 7 also shows Remote PC and "See
-  User Guide" tiles at the end of the shelf. The patch leaves them alone.
+  User Guide" tiles at the end of the shelf. The webOS 7 patch also drops the
+  User Guide tile (type `"guide"`) and keeps Remote PC.
 - `06`: the launcher ids match, except `com.webos.app.livepick-full`
   (Who.Where.What?), which isn't on this TV. Leaving it in the list is harmless.
 - `07`: `MobileComponent.qml` already imports `QtGraphicalEffects`, so
