@@ -1,6 +1,6 @@
 # webOS Home Screen Lab
 
-Reclaim the home screen on an LG webOS 6.x TV you own: drop the ads, promos,
+Reclaim the home screen on an LG webOS 6.x or 7.x TV you own: drop the ads, promos,
 "Start a new experience" filler and unused tiles, put a full-screen photo
 behind everything, and make the input tiles dark so they sit on it.
 
@@ -11,9 +11,11 @@ is done with the public community tools linked in
 [`docs/01-rooting.md`](docs/01-rooting.md), and everything in this repo runs
 after the TV is already rooted.
 
-Tested on a 43UP8000PUR, webOS 6.5 (software 03.51.16). Other 6.x models use the
-same home app structure, but file names and image sizes vary, so read your own
-files instead of pasting mine.
+Tested on a 43UP8000PUR, webOS 6.5 (software 03.51.16), and a 43UQ7070ZUD,
+webOS 7.6 (software 04.60.90). Other models use the same home app structure, but
+file names and image sizes vary, so read your own files instead of pasting mine.
+For webOS 7, use `patches/webos7/` and see
+[`docs/06-webos7.md`](docs/06-webos7.md).
 
 ![home screen](assets/screenshot.jpg)
 
@@ -26,7 +28,9 @@ files instead of pasting mine.
 | `docs/03-the-edits.md` | Every change, what it does and why, keyed to the patches |
 | `docs/04-going-further.md` | Building your own app, the screensaver, doing it across several TVs |
 | `docs/05-apps-and-settings.md` | The homebrew apps we install and why, plus the privacy pass |
-| `patches/` | One `git`-style patch per change, against LG's stock home QML |
+| `docs/06-webos7.md` | What changes on webOS 7 (webOS 22): ported patches, screen size, app notes |
+| `patches/` | One `git`-style patch per change, against LG's stock home QML (webOS 6.5) |
+| `patches/webos7/` | The same patches ported to webOS 7 |
 | `hooks/70-homeqml-k` | Boot hook: bind-mounts the patched copy and relaunches home |
 | `scripts/render_home_bg.py` | Turns the ESO Milky Way panorama into a TV-safe background (geometry is tuned to that image) |
 | `scripts/deploy.sh` | Copies the overlay to the TV and applies it |
