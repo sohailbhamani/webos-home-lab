@@ -22,6 +22,7 @@ echo $$ > $PIDFILE
 # keep it only if the size is sane and it really is that kind of file
 fetch() {
   tmp=$2.tmp
+  ok=0
   rm -f $tmp
   if curl -sf -m 300 --max-filesize $4 -o $tmp "$1"; then
     size=$(wc -c < $tmp)
@@ -36,14 +37,21 @@ fetch() {
     [ $ok = 1 ] && mv $tmp $2
   fi
   rm -f $tmp
+  [ "$ok" = 1 ]
 }
-
 mkdir -p $OUT
+# The TV suspends in standby and `sleep` doesn't count that time, so a plain
+# 15-min sleep wakes up late and fires before wifi is back. Check the wall
+# clock every minute instead, and retry a failed picture after a minute.
+last=0
 while true; do
-  # the NASA maps don't change: fetched until we have them
-  [ -s $OUT/day.jpg ] || fetch "$DAY" $OUT/day.jpg 50000 5000000 jpeg
-  [ -s $OUT/night.jpg ] || fetch "$NIGHT" $OUT/night.jpg 30000 5000000 jpeg
-  fetch "$IMG" $OUT/earth.jpg 300000 5000000 jpeg
-  fetch "$WX" $OUT/weather.json 500 1000000 json
-  sleep 900
+  now=$(date +%s)
+  if [ $((now - last)) -ge 900 ]; then
+    # the NASA maps don't change: fetched until we have them
+    [ -s $OUT/day.jpg ] || fetch "$DAY" $OUT/day.jpg 50000 5000000 jpeg
+    [ -s $OUT/night.jpg ] || fetch "$NIGHT" $OUT/night.jpg 30000 5000000 jpeg
+    fetch "$IMG" $OUT/earth.jpg 300000 5000000 jpeg && last=$now
+    fetch "$WX" $OUT/weather.json 500 1000000 json
+  fi
+  sleep 60
 done
