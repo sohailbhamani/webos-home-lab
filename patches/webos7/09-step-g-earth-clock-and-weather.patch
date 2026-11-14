@@ -3,7 +3,7 @@ new file mode 100644
 index 0000000..160b6cc
 --- /dev/null
 +++ b/UserInterfaceLayer/Containers/EarthClock.qml
-@@ -0,0 +1,393 @@
+@@ -0,0 +1,403 @@
 +// krieger: home screen Earth clock. The live GOES-West picture curved into a
 +// low-orbit view of home, with the clock, today's weather and the next 8 hours.
 +// earthfetch-k.sh keeps earth/earth.jpg and earth/weather.json fresh.
@@ -300,14 +300,18 @@ index 0000000..160b6cc
 +        property point at: root.project(root.unit(root.homeLat, root.homeLon))
 +        x: at.x; y: at.y
 +        visible: globe.visible || prettyGlobe.visible
-+        Rectangle { width: 46; height: 46; radius: 23; x: -23; y: -23; color: "#40ffd36b" }
-+        Rectangle { width: 14; height: 14; radius: 7; x: -7; y: -7; color: "#ffd36b" }
-+        Text {
-+            x: 22; y: -16
-+            text: root.homeName.toUpperCase()
-+            color: "white"; opacity: 0.85
-+            font.pixelSize: 24; font.letterSpacing: 3
-+            style: Text.Raised; styleColor: "#80000000"
++        // krieger: dark-outlined pin and a dark pill behind the name, readable on white cloud
++        Rectangle { width: 52; height: 52; radius: 26; x: -26; y: -26; color: "#55ff5a36" }
++        Rectangle { width: 26; height: 26; radius: 13; x: -13; y: -13; color: "white" }
++        Rectangle { width: 18; height: 18; radius: 9; x: -9; y: -9; color: "#ff5a36" }
++        Rectangle {
++            x: 28; y: -24; width: 220; height: 48; radius: 24; color: "#cc0b0f1a"
++            Text {
++                anchors.centerIn: parent
++                text: root.homeName.toUpperCase()
++                color: "white"
++                font.pixelSize: 26; font.bold: true; font.letterSpacing: 3
++            }
 +        }
 +    }
 +
@@ -394,6 +398,12 @@ index 0000000..160b6cc
 +            var now = new Date()
 +            clock.text = root.hm(now)
 +            dateLine.text = Qt.formatDate(now, "dddd, MMMM d")
++            // krieger: the 5-min timers stop while the TV sleeps; after a wake, refresh now
++            var since = now.getTime() - root.stamp
++            if (since > 310000 || since < 0) {
++                root.stamp = now.getTime(); root.loadWeather()
++                root.imgStamp = now.getTime(); root.sunDir = root.sunVector(now)
++            }
 +        }
 +    }
 +}
