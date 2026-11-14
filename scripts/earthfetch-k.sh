@@ -42,16 +42,21 @@ fetch() {
 mkdir -p $OUT
 # The TV suspends in standby and `sleep` doesn't count that time, so a plain
 # 15-min sleep wakes up late and fires before wifi is back. Check the wall
-# clock every minute instead, and retry a failed picture after a minute.
-last=0
+# clock every minute instead. A failed picture is retried after a minute;
+# everything else waits its 15 min. A clock that jumps back counts as due.
+pic=0
+wx=0
 while true; do
   now=$(date +%s)
-  if [ $((now - last)) -ge 900 ]; then
+  if [ $((now - wx)) -ge 900 ] || [ $now -lt $wx ]; then
+    wx=$now
     # the NASA maps don't change: fetched until we have them
     [ -s $OUT/day.jpg ] || fetch "$DAY" $OUT/day.jpg 50000 5000000 jpeg
     [ -s $OUT/night.jpg ] || fetch "$NIGHT" $OUT/night.jpg 30000 5000000 jpeg
-    fetch "$IMG" $OUT/earth.jpg 300000 5000000 jpeg && last=$now
     fetch "$WX" $OUT/weather.json 500 1000000 json
+  fi
+  if [ $((now - pic)) -ge 900 ] || [ $now -lt $pic ]; then
+    fetch "$IMG" $OUT/earth.jpg 300000 5000000 jpeg && pic=$now
   fi
   sleep 60
 done

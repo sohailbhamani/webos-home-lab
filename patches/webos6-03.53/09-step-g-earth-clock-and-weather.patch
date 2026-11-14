@@ -3,7 +3,7 @@ new file mode 100644
 index 0000000..160b6cc
 --- /dev/null
 +++ b/UserInterfaceLayer/Containers/EarthClock.qml
-@@ -0,0 +1,402 @@
+@@ -0,0 +1,403 @@
 +// krieger: home screen Earth clock. The live GOES-West picture curved into a
 +// low-orbit view of home, with the clock, today's weather and the next 8 hours.
 +// earthfetch-k.sh keeps earth/earth.jpg and earth/weather.json fresh.
@@ -399,7 +399,8 @@ index 0000000..160b6cc
 +            clock.text = root.hm(now)
 +            dateLine.text = Qt.formatDate(now, "dddd, MMMM d")
 +            // krieger: the 5-min timers stop while the TV sleeps; after a wake, refresh now
-+            if (now.getTime() - root.stamp > 310000) {
++            var since = now.getTime() - root.stamp
++            if (since > 310000 || since < 0) {
 +                root.stamp = now.getTime(); root.loadWeather()
 +                root.imgStamp = now.getTime(); root.sunDir = root.sunVector(now)
 +            }
